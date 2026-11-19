@@ -1,1 +1,61 @@
+name: killFlow Build
 
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - '**.md'
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Windows
+            os: windows-latest
+            target: Win64
+          - name: Android32
+            os: ubuntu-latest
+            target: Android32
+          - name: Android64
+            os: ubuntu-latest
+            target: Android64
+    steps:
+      - uses: actions/checkout@v7
+      - name: Build killFlow
+        uses: geode-sdk/build-geode-mod@main
+        with:
+          sdk: given
+          cli: latest
+          target: ${{ matrix.target }}
+          combine: true
+          configure-args: -DAFTERFLOW_PURGE_UNZIPPED=OFF
+
+  package:
+    name: Package
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Combine into one .geode
+        id: combine
+        uses: geode-sdk/build-geode-mod/combine@main
+        with:
+          zstd: false
+      - name: Check compression
+        env:
+          OUT: ${{ steps.combine.outputs.build-output }}
+        run: python3 tools/check-geode-compression.py "$OUT"
+      - uses: actions/upload-artifact@v7
+        with:
+          name: killFlow-geode
+          path: ${{ steps.combine.outputs.build-output }}/*.geode
+          if-no-files-found: error
