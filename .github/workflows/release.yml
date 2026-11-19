@@ -1,1 +1,61 @@
+name: killFlow Release
 
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+    permissions:
+      contents: read
+
+  publish:
+    name: Publish release
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: read
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Read version
+        run: |
+          set -euo pipefail
+          v1="$(tr -d '[:space:]' < version.txt)"; v1="${v1#v}"
+          v2="$(jq -r .version mod.json)"; v2="${v2#v}"
+          if [ "$v1" != "$v2" ]; then
+            echo "version.txt ($v1) and mod.json ($v2) must match"
+            exit 1
+          fi
+          echo "VERSION=$v1" >> "$GITHUB_ENV"
+
+      - name: Download package
+        run: gh run download "$GITHUB_RUN_ID" --repo "$GITHUB_REPOSITORY" --name killFlow-geode --dir dist
+
+      - name: Name the assets
+        run: |
+          set -euo pipefail
+          id="$(jq -r .id mod.json)"
+          test -f "dist/${id}.geode"
+          cp "dist/${id}.geode" dist/killflow.Lumin.geode
+          ls -l dist
+
+      - name: Release notes
+        run: |
+          awk -v v="$VERSION" '
+            BEGIN { gsub(/\./, "\\.", v) }
+            /^# / { if (found) exit; if ($0 ~ "^# [vV]?" v "$") { found = 1; next } }
+            found { print }
+          ' changelog.md > notes.md
+
+      - name: Create release
+        run: |
+          set -euo pipefail
+          if [ -s notes.md ]; then notes=(--notes-file notes.md); else notes=(--generate-notes); fi
+          gh release create "$VERSION" dist/*.geode --target "$GITHUB_SHA" --title "killFlow $VERSION" "${notes[@]}"
