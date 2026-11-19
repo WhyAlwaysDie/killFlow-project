@@ -1,0 +1,296 @@
+{
+  "geode": "5.11.2",
+  "gd": {
+    "win": "2.2081",
+    "android": "2.2081"
+  },
+  "id": "lumin.killflow",
+  "name": "killFlow",
+  "version": "0.2.0",
+  "developer": "Lumin",
+  "description": "Predictive input buffering with live timing analysis and a red-on-black K control panel.",
+  "tags": [
+    "gameplay",
+    "utility",
+    "developer"
+  ],
+  "resources": {
+    "files": [
+      "resources/killflow-body.fnt",
+      "resources/killflow-body.png",
+      "resources/killflow-display.fnt",
+      "resources/killflow-display.png",
+      "resources/killflow-logo.png",
+      "resources/OFL.txt"
+    ]
+  },
+  "settings": {
+    "terminal-title": {
+      "type": "title",
+      "name": "terminal",
+      "description": "terminal window options",
+      "platforms": [
+        "win",
+        "mac"
+      ]
+    },
+    "terminal-enabled": {
+      "type": "bool",
+      "name": "enable terminal",
+      "description": "show the terminal button in the killflow control panel",
+      "default": true,
+      "platforms": [
+        "win",
+        "mac"
+      ]
+    },
+    "keybinds-title": {
+      "type": "title",
+      "name": "keybinds",
+      "description": "change geodes keybinding anytime for killflow",
+      "platforms": [
+        "win",
+        "mac"
+      ]
+    },
+    "keybind-stage": {
+      "type": "keybind",
+      "name": "cycle stages",
+      "description": "cycle prediction stages",
+      "category": "gameplay",
+      "default": [
+        "F6"
+      ],
+      "platforms": [
+        "win",
+        "mac"
+      ]
+    },
+    "keybind-terminal": {
+      "type": "keybind",
+      "name": "control panel",
+      "description": "open or close the killflow control panel",
+      "category": "universal",
+      "default": [
+        "F9"
+      ],
+      "platforms": [
+        "win",
+        "mac"
+      ]
+    },
+    "stage-keys-title": {
+      "type": "title",
+      "name": "stage keys",
+      "description": "press a stage's key to jump straight to that stage. custom keys follow the slot (c1 - c4)",
+      "platforms": [
+        "win",
+        "mac"
+      ]
+    },
+    "stage-key-tight": {
+      "type": "keybind",
+      "name": "stage: tight",
+      "description": "jump to the tight stage (2t all / 2t wave)",
+      "category": "gameplay",
+      "default": [],
+      "platforms": [
+        "win",
+        "mac"
+      ]
+    },
+    "stage-key-quick": {
+      "type": "keybind",
+      "name": "stage: quick",
+      "description": "jump to the quick stage (4t all / 4t wave)",
+      "category": "gameplay",
+      "default": [],
+      "platforms": [
+        "win",
+        "mac"
+      ]
+    },
+    "stage-key-steady": {
+      "type": "keybind",
+      "name": "stage: steady",
+      "description": "jump to the steady stage (8t all / 8t wave)",
+      "category": "gameplay",
+      "default": [],
+      "platforms": [
+        "win",
+        "mac"
+      ]
+    },
+    "stage-key-flow": {
+      "type": "keybind",
+      "name": "stage: flow",
+      "description": "jump to the flow stage (16t all / 8t wave)",
+      "category": "gameplay",
+      "default": [],
+      "platforms": [
+        "win",
+        "mac"
+      ]
+    },
+    "stage-key-deep": {
+      "type": "keybind",
+      "name": "stage: deep",
+      "description": "jump to the deep stage (24t all / 12t wave)",
+      "category": "gameplay",
+      "default": [],
+      "platforms": [
+        "win",
+        "mac"
+      ]
+    },
+    "stage-key-wide": {
+      "type": "keybind",
+      "name": "stage: wide",
+      "description": "jump to the wide stage (32t all / 16t wave)",
+      "category": "gameplay",
+      "default": [],
+      "platforms": [
+        "win",
+        "mac"
+      ]
+    },
+    "stage-key-max": {
+      "type": "keybind",
+      "name": "stage: max",
+      "description": "jump to the max stage (40t all / 20t wave)",
+      "category": "gameplay",
+      "default": [],
+      "platforms": [
+        "win",
+        "mac"
+      ]
+    },
+    "stage-key-raw": {
+      "type": "keybind",
+      "name": "stage: raw",
+      "description": "jump to the raw stage (buffer off)",
+      "category": "gameplay",
+      "default": [],
+      "platforms": [
+        "win",
+        "mac"
+      ]
+    },
+    "stage-key-c1": {
+      "type": "keybind",
+      "name": "stage: custom 1",
+      "description": "jump to custom stage 1",
+      "category": "gameplay",
+      "default": [],
+      "platforms": [
+        "win",
+        "mac"
+      ]
+    },
+    "stage-key-c2": {
+      "type": "keybind",
+      "name": "stage: custom 2",
+      "description": "jump to custom stage 2",
+      "category": "gameplay",
+      "default": [],
+      "platforms": [
+        "win",
+        "mac"
+      ]
+    },
+    "stage-key-c3": {
+      "type": "keybind",
+      "name": "stage: custom 3",
+      "description": "jump to custom stage 3",
+      "category": "gameplay",
+      "default": [],
+      "platforms": [
+        "win",
+        "mac"
+      ]
+    },
+    "stage-key-c4": {
+      "type": "keybind",
+      "name": "stage: custom 4",
+      "description": "jump to custom stage 4",
+      "category": "gameplay",
+      "default": [],
+      "platforms": [
+        "win",
+        "mac"
+      ]
+    },
+    "ui-title": {
+      "type": "title",
+      "name": "ui customization",
+      "description": "customize the control panel appearance"
+    },
+    "ui-primary-color": {
+      "type": "color",
+      "name": "primary color",
+      "description": "primary gradient color for the panel",
+      "default": "#FF202A"
+    },
+    "ui-secondary-color": {
+      "type": "color",
+      "name": "secondary color",
+      "description": "secondary gradient color for the panel",
+      "default": "#FF777F"
+    },
+    "ui-surface-color": {
+      "type": "color",
+      "name": "surface color",
+      "description": "background color of the panel card",
+      "default": "#0B080A"
+    },
+    "ui-text-color": {
+      "type": "color",
+      "name": "text color",
+      "description": "color used for all panel text",
+      "default": "#FFF0F1"
+    },
+    "ui-glow": {
+      "type": "bool",
+      "name": "glow",
+      "description": "draw a soft accent glow behind the panel",
+      "default": true
+    },
+    "ui-panel-scale": {
+      "type": "float",
+      "name": "panel scale",
+      "description": "adjust the overall size of the control panel",
+      "default": 0.7,
+      "min": 0.4,
+      "max": 2.0,
+      "step": 0.05
+    },
+    "ui-font-scale": {
+      "type": "float",
+      "name": "font scale",
+      "description": "adjust the text size in the control panel",
+      "default": 1.5,
+      "min": 0.8,
+      "max": 2.0,
+      "step": 0.05
+    },
+    "mobile-title": {
+      "type": "title",
+      "name": "mobile",
+      "description": "android and ios options",
+      "platforms": [
+        "android",
+        "ios"
+      ]
+    },
+    "mobile-floating-button": {
+      "type": "bool",
+      "name": "floating af button",
+      "description": "also show the draggable af button on screen. the pause menu button is always there",
+      "default": false,
+      "platforms": [
+        "android",
+        "ios"
+      ]
+    }
+  }
+}

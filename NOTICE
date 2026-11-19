@@ -1,0 +1,7 @@
+killFlow attribution notice
+
+This project adapts the Afterflow 2.2.7 source code by prsevend, supplied under
+the MIT License. The original copyright and permission notice is retained in
+LICENSE. The source-derived predictive simulation and input-buffering code
+remain subject to that license. killFlow's project identity, configuration,
+red/black UI theme, and K logo are adaptations for this fork.
